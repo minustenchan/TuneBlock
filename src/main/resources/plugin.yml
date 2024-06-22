@@ -4,5 +4,3 @@ description: Reimplements noteblock features while using Oraxen
 version: '${version}'
 main: com.github.minustenchan.tuneblock.TuneBlockPlugin
 api-version: '1.20'
-depend:
-  - Oraxen

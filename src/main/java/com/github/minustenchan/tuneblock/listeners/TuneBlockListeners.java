@@ -2,6 +2,7 @@ package com.github.minustenchan.tuneblock.listeners;
 
 import com.github.minustenchan.tuneblock.TuneBlock;
 import io.th0rgal.oraxen.api.OraxenBlocks;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
@@ -28,7 +29,7 @@ public class TuneBlockListeners implements Listener {
     @EventHandler
     public void onNoteblockPower(final BlockPhysicsEvent event) {
         Block block = event.getBlock();
-        if (!isRegularNoteblock(block)) return;
+        if (!isRegularNoteBlock(block)) return;
         TuneBlock tuneBlock = new TuneBlock(block, null);
 
         if (!block.isBlockIndirectlyPowered()) {
@@ -45,7 +46,7 @@ public class TuneBlockListeners implements Listener {
         if (event.getAction() != Action.RIGHT_CLICK_BLOCK) return;
 
         Block block = event.getClickedBlock();
-        if (block == null || !isRegularNoteblock(block)) return;
+        if (block == null || !isRegularNoteBlock(block)) return;
 
         Player player = event.getPlayer();
         PlayerInventory playerInventory = player.getInventory();
@@ -68,7 +69,8 @@ public class TuneBlockListeners implements Listener {
         tuneBlock.runClickAction(Action.RIGHT_CLICK_BLOCK);
     }
 
-    public static boolean isRegularNoteblock(Block block) {
-        return !OraxenBlocks.isOraxenBlock(block) && block.getType() == Material.NOTE_BLOCK;
+    public static boolean isRegularNoteBlock(Block block) {
+        return (!Bukkit.getServer().getPluginManager().isPluginEnabled("Oraxen") || !OraxenBlocks.isOraxenBlock(block)) &&
+                block.getType() == Material.NOTE_BLOCK;
     }
 }

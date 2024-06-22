@@ -1,8 +1,8 @@
 package com.github.minustenchan.tuneblock;
 
 import com.github.minustenchan.tuneblock.listeners.TuneBlockListeners;
+import com.jeff_media.customblockdata.CustomBlockData;
 import org.bukkit.event.HandlerList;
-import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class TuneBlockPlugin extends JavaPlugin {
@@ -19,13 +19,8 @@ public final class TuneBlockPlugin extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        PluginManager pluginManager = getServer().getPluginManager();
-        if (pluginManager.isPluginEnabled("Oraxen")) {
-            pluginManager.registerEvents(new TuneBlockListeners(), this);
-        } else {
-            getLogger().severe("Oraxen needs to be enabled in order for this plugin to work");
-            pluginManager.disablePlugin(this);
-        }
+        getServer().getPluginManager().registerEvents(new TuneBlockListeners(), this);
+        CustomBlockData.registerListener(this);
     }
 
     @Override
